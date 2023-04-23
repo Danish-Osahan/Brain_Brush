@@ -8,14 +8,17 @@ dotenv.config()
 const router=express.Router();
 
 cloudinary.config({
-    api_key: process.env.CLOUDINARY_API_KEY,
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_secret:process.env.CLOUDINARY_API_SECRET
+    api_key: "532972659641584",
+    cloud_name: "dqqfrwrk4",
+    api_secret:"kKdmid_AB7WKj_Fada-2xqDWZPQ"
 
 })
 
+router.route("/").get(async(req,res)=>{
+  res.status(200).json({message:'Post routes'})
+})
 // GET ALL  POSTS
-router.route('/').get(async (req,res)=>{
+router.route("/").get(async (req,res)=>{
   try {
     const posts=Post.find({});
 

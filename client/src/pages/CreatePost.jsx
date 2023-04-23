@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FormField, Loader } from "../components";
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
+import axios from 'axios'
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -12,13 +13,21 @@ const CreatePost = () => {
     prompt: "",
     photo: "",
   });
+
+  const api= axios.create({
+    baseURL: 'https://brainbrush-server.onrender.com',
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ ...form })
+  })
   const [loading, setLoading] = useState(false);
   const [genratingImage, setGenratingImage] = useState(false);
   const generateIMage = async () => {
     if (form.prompt) {
       try {
         setGenratingImage(true);
-        const response = await fetch("http://localhost:8080/api/v1/dalle", {
+        const response = await fetch("https://brainbrush-server.onrender.com/api/v1/dalle", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -40,18 +49,19 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.prompt && form.prompt) {
+    if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8080/api/v1/post", {
-          method: "POST",
+        const response = await fetch('https://brainbrush-server.onrender.com/api/v1/post', {
+          method: 'POST',
           headers: {
-            'Content-Type':"application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ ...form }),
         });
+
         await response.json();
-        alert("Success");
+        alert('Success');
         navigate("/");
       } catch (error) {
         alert(error);

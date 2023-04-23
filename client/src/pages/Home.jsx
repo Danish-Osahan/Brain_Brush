@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Loader, Card, FormField } from "../components";
 
+const url="http://localhost:8080"
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
     return data.map((post) => <Card key={post._id} {...post} />);
@@ -18,7 +19,7 @@ const Home = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/v1/post", {
+      const response = await fetch("https://brainbrush-server.onrender.com/api/v1/post", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +27,7 @@ const Home = () => {
       });
       if (response.ok) {
         const result = await response.json();
-        setMainData(result.data.reverse());
+        setMainData(result.data?.reverse());
         console.log(result);
       }
     } catch (error) {
