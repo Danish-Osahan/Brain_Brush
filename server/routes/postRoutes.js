@@ -14,9 +14,9 @@ cloudinary.config({
 
 })
 
-router.route("/").get(async(req,res)=>{
-  res.status(200).json({message:'Post routes'})
-})
+// router.route("/").get(async(req,res)=>{
+//   res.status(200).json({message:'Post routes'})
+// })
 // GET ALL  POSTS
 router.route("/").get(async (req,res)=>{
   try {

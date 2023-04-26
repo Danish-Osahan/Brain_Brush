@@ -5,10 +5,13 @@ import { Loader, Card, FormField } from "../components";
 const url="http://localhost:8080"
 const RenderCards = ({ data, title }) => {
   if (data?.length > 0) {
-    return data.map((post) => <Card key={post._id} {...post} />);
+    return (
+      data.map((post) => <Card key={post._id} {...post} />)
+    );
   }
+
   return (
-    <h2 className="mt-4 font-bold text-[#6449ff] text-xl uppercase">{title}</h2>
+    <h2 className="mt-5 font-bold text-[#6469ff] text-xl uppercase">{title}</h2>
   );
 };
 const Home = () => {
@@ -27,7 +30,7 @@ const Home = () => {
       });
       if (response.ok) {
         const result = await response.json();
-        setMainData(result.data?.reverse());
+        setMainData(result.data);
         console.log(result);
       }
     } catch (error) {
